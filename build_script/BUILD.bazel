@@ -1,0 +1,10 @@
+package(default_visibility = ["//visibility:public"])
+
+sh_binary(
+    name = "install_stella",
+    srcs = ["install_stella.sh"],
+    #TODO "//stella/core/parser/tensorflow:convert_graphdef" just for trigger bazel build, it should be modified in future
+    data = ["@org_tensorflow//tensorflow:tensorflow",
+            "//stella/core/parser/tensorflow:convert_graphdef"],
+    deps = ["@bazel_tools//tools/bash/runfiles"],
+)
