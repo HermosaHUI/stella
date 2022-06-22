@@ -105,9 +105,9 @@ cc_binary(
             "@llvm-project//mlir:Pass",
             "@llvm-project//mlir:Support",
             "@llvm-project//mlir/test:TestTransforms",]
-             + if_tf(
-                ["@org_tensorflow//tensorflow/core/platform:logging",]
-            ),#TODO add if_onnx&if_pytorch here after added the corresponding build support
+#             + if_tf(
+#                ["@org_tensorflow//tensorflow/core/platform:logging",]
+#            ),#TODO add if_onnx&if_pytorch here after added the corresponding build support
 )
 
 
