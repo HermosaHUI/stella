@@ -18,13 +18,14 @@ build --macos_minimum_os=10.9
 build --announce_rc
 
 # By default, build Project in C++ 17 mode.
-build:linux --cxxopt=-std=c++17
-build:linux --host_cxxopt=-std=c++17
+build:linux --cxxopt=-std=c++14
+build:linux --host_cxxopt=-std=c++14
+#build:linux --linkopt=-Wl,-rpath,
 build:macos --cxxopt=-std=c++17
 build:macos --host_cxxopt=-std=c++17
 build:windows --cxxopt=/std:c++17
 build:windows --host_cxxopt=/std:c++17
-build --action_env STELLA_ENV_PATH="./" --cxxopt=-std=c++17
+build --action_env STELLA_ENV_PATH="./" --cxxopt=-std=c++14
 
 # Disable enabled-by-default TensorFlow features that we don't care about.
 build --define=no_aws_support=true
