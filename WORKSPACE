@@ -135,110 +135,59 @@ http_archive(
 
 # Check out LLVM and MLIR from llvm-project.
 # 当需要使用和tensorflow不一样的llvm时，可以通过url指定或者是local_repository
-LLVM_COMMIT = "d9afb8c3e8fd01a3c89ab2ddebcd44602a30a975"
+#LLVM_COMMIT = "d9afb8c3e8fd01a3c89ab2ddebcd44602a30a975"
 #LLVM_SHA256 = "6763ad99c95b1849f4585ab8fdb473e71350dba0b306b34073121826429f6c6d"
 #LLVM_URLS = [
 #    "https://storage.googleapis.com/mirror.tensorflow.org/github.com/llvm/llvm-project/archive/{commit}.tar.gz".format(commit = LLVM_COMMIT),
 #    "https://github.com/llvm/llvm-project/archive/{commit}.tar.gz".format(commit = LLVM_COMMIT),
 #]
 
-tf_http_archive(
-    name = "llvm-project",
+#tf_http_archive(
+#    name = "llvm-project",
 #    sha256 = LLVM_SHA256,
-    sha256 = "6763ad99c95b1849f4585ab8fdb473e71350dba0b306b34073121826429f6c6d",
-    strip_prefix = "llvm-project-d9afb8c3e8fd01a3c89ab2ddebcd44602a30a975",
-    urls = tf_mirror_urls("https://github.com/llvm/llvm-project/archive/d9afb8c3e8fd01a3c89ab2ddebcd44602a30a975.tar.gz"),
+#    sha256 = "6763ad99c95b1849f4585ab8fdb473e71350dba0b306b34073121826429f6c6d",
+#    strip_prefix = "llvm-project-d9afb8c3e8fd01a3c89ab2ddebcd44602a30a975",
+#    urls = tf_mirror_urls("https://github.com/llvm/llvm-project/archive/d9afb8c3e8fd01a3c89ab2ddebcd44602a30a975.tar.gz"),
 #    build_file = [
 #       "//third_party/llvm:llvm.bazel",
 #       "//third_party/mlir:BUILD.bazel",
 #        "//third_party/mlir:test.BUILD": "mlir/test/BUILD",
-    link_files = {
-       "//third_party/llvm:BUILD.bazel": "llvm/BUILD",
-       "//third_party/llvm:binary_alias.bzl": "llvm/binary_alias.bzl",
-       "//third_party/llvm:cc_plugin_library.bzl": "llvm/cc_plugin_library.bzl",
-       "//third_party/llvm:enum_targets_gen.bzl": "llvm/enum_targets_gen.bzl",
-       "//third_party/llvm:tblgen.bzl": "llvm/tblgen.bzl",
-       "//third_party/llvm:config.bzl": "llvm/config.bzl",
-       "//third_party/llvm:template_rule.bzl": "llvm/template_rule.bzl",
-       "//third_party/mlir:BUILD.bazel": "mlir/BUILD",
-       "//third_party/mlir:build_defs.bzl": "mlir/build_defs.bzl",
-       "//third_party/mlir:linalggen.bzl": "mlir/linalggen.bzl",
-       "//third_party/mlir:tblgen.bzl": "mlir/tblgen.bzl",
-       "//third_party/mlir/test:BUILD.bazel": "mlir/test/BUILD",
-     },
-)
-
+#    link_files = {
+#       "//third_party/llvm:BUILD.bazel": "llvm/BUILD",
+#       "//third_party/llvm:binary_alias.bzl": "llvm/binary_alias.bzl",
+#       "//third_party/llvm:cc_plugin_library.bzl": "llvm/cc_plugin_library.bzl",
+#       "//third_party/llvm:enum_targets_gen.bzl": "llvm/enum_targets_gen.bzl",
+#       "//third_party/llvm:tblgen.bzl": "llvm/tblgen.bzl",
+#       "//third_party/llvm:config.bzl": "llvm/config.bzl",
+#       "//third_party/llvm:template_rule.bzl": "llvm/template_rule.bzl",
+#       "//third_party/mlir:BUILD.bazel": "mlir/BUILD",
+#       "//third_party/mlir:build_defs.bzl": "mlir/build_defs.bzl",
+#       "//third_party/mlir:linalggen.bzl": "mlir/linalggen.bzl",
+#       "//third_party/mlir:tblgen.bzl": "mlir/tblgen.bzl",
+#       "//third_party/mlir/test:BUILD.bazel": "mlir/test/BUILD",
+#     },
+#)
 
 
 #For development, one can use a local LLVM-PROJECT repository instead.
-#new_local_repository(
-#   name = "llvm-raw",
-#   path = "../llvm-project",
-#   build_file_content = "# empty",
-#)
-#
-#load("@llvm-raw//utils/bazel:configure.bzl", "llvm_configure")
-#
-#llvm_configure(name = "llvm-project")
-#
-load("@llvm-project//utils/bazel:terminfo.bzl", "llvm_terminfo_from_env")
+new_local_repository(
+   name = "llvm-raw",
+   path = "../llvm-project",
+   build_file_content = "# empty",
+)
+
+load("@llvm-raw//utils/bazel:configure.bzl", "llvm_configure", "llvm_disable_optional_support_deps")
+llvm_configure(name = "llvm-project")
+
+load("@llvm-raw//utils/bazel:terminfo.bzl", "llvm_terminfo_from_env")
+
+llvm_disable_optional_support_deps()
 
 maybe(
   llvm_terminfo_from_env,
   name = "llvm_terminfo",
 )
 
-maybe(
-     http_archive,
-     name = "zlib",
-     build_file = "@llvm-project//utils/bazel/third_party_build:zlib.BUILD",
-     sha256 = "91844808532e5ce316b3c010929493c0244f3d37593afd6de04f71821d5136d9",
-     strip_prefix = "zlib-1.2.12",
-     urls = [
-         "https://storage.googleapis.com/mirror.tensorflow.org/zlib.net/zlib-1.2.12.tar.gz",
-         "https://zlib.net/zlib-1.2.12.tar.gz",
-     ],
- )
- 
-load("@llvm-project//utils/bazel:zlib.bzl", "llvm_zlib_from_env")
-
-maybe(
-    llvm_zlib_from_env,
-    name = "llvm_zlib",
-    external_zlib = "@zlib",
-)
-
-#LLVM_COMMIT = "4191de262f19a65e3e5690f9780753f26fc649c9"
-#LLVM_SHA256 = "c916ec0a7daea6e5e18e85b959bb0bf0fdc4465beff4e8648e426558bc729367"
-#
-#http_archive(
-#    name = "llvm-raw",
-#    build_file_content = "# empty",
-#    sha256 = LLVM_SHA256,
-#    strip_prefix = "llvm-project-" + LLVM_COMMIT,
-#    urls = ["https://github.com/llvm/llvm-project/archive/{commit}.tar.gz".format(commit = LLVM_COMMIT)],
-#)
-#
-#load("@llvm-raw//utils/bazel:configure.bzl", "llvm_configure", "llvm_disable_optional_support_deps")
-#
-#llvm_configure(name = "llvm-project")
-#
-#llvm_disable_optional_support_deps()
-#
-#
-#load("//third_party/llvm:setup.bzl", "llvm_setup")
-#
-#llvm_setup(name = "llvm-project")
-#
-## Intel openMP that is part of LLVM sources.
-#http_archive(
-#  name = "llvm_openmp",
-#  build_file = "//third_party/llvm_openmp:BUILD",
-#  sha256 = "d19f728c8e04fb1e94566c8d76aef50ec926cd2f95ef3bf1e0a5de4909b28b44",
-#  strip_prefix = "openmp-10.0.1.src",
-#  url = "https://github.com/llvm/llvm-project/releases/download/llvmorg-10.0.1/openmp-10.0.1.src.tar.xz",
-#)
-#
 # To update TensorFlow to a new revision,
 # a) update URL and strip_prefix to the new git commit hash
 # b) get the sha256 hash of the commit by running:
