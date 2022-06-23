@@ -97,7 +97,7 @@ config_setting(
 cc_binary(
     name = "test",
     srcs = ["test.cc"],
-    copts = [],
+    copts = ["-std=c++14", "-fno-rtti"],
     deps = [
             "@llvm-project//llvm:Support",
             "@llvm-project//mlir:AllPassesAndDialects",
