@@ -7,12 +7,13 @@
  * @FilePath: /inference-engine-doc/test.cc
  */
 
-#include "tensorflow/core/platform/logging.h"
+//#include "tensorflow/core/platform/logging.h"
+//#include "tensorflow/compiler/mlir/init_mlir.h"
 #include "mlir/Pass/Pass.h"  // TF:llvm-project
 int main(int argc, char **argv) {
-  tensorflow::InitMlir y(&argc, &argv);
+//  tensorflow::InitMlir y(&argc, &argv);
   printf("Init Mlir good\n");
-  CHECK_EQ(1,1);
-  print("Call tensorflow-inside func good\n")
+//  CHECK_EQ(1,1);
+//  print("Call tensorflow-inside func good\n");
 }
 

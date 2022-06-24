@@ -172,6 +172,7 @@ http_archive(
 #For development, one can use a local LLVM-PROJECT repository instead.
 new_local_repository(
    name = "llvm-raw",
+#   path = "../llvm-project",
    path = "../llvm-project",
    build_file_content = "# empty",
 )
@@ -203,15 +204,15 @@ maybe(
 #)
 
 #For development, one can use a local TF repository instead.
-#local_repository(
-#   name = "org_tensorflow",
-#   path = "../tensorflow",
-#)
-#
+local_repository(
+   name = "org_tensorflow",
+   path = "../tensorflow",
+)
+
 #load("@org_tensorflow//tensorflow:workspace0.bzl", "tf_bind")
 #load("@org_tensorflow//tensorflow:workspace1.bzl", "workspace")
 #load("@org_tensorflow//tensorflow:workspace2.bzl", "tf_workspace", "tf_bind")
-#
+
 #workspace()
 #tf_bind()
 #tf_workspace(
