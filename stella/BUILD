@@ -104,10 +104,11 @@ cc_binary(
             "@llvm-project//mlir:MlirOptLib",
             "@llvm-project//mlir:Pass",
             "@llvm-project//mlir:Support",
-            "@llvm-project//mlir/test:TestTransforms",]
-             + if_tf(
-                 ["@org_tensorflow//tensorflow/compiler/mlir:init_mlir",]
-            ),#TODO add if_onnx&if_pytorch here after added the corresponding build support
+            "@llvm-project//mlir/test:TestTransforms",
+            "@org_tensorflow//tensorflow/compiler/mlir:init_mlir",]
+#             + if_tf(
+#                 ["@org_tensorflow//tensorflow/compiler/mlir:init_mlir",]
+#            ),#TODO add if_onnx&if_pytorch here after added the corresponding build support
 )
 
 
