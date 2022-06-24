@@ -100,12 +100,13 @@ cc_binary(
     copts = ["-std=c++14", "-fno-rtti"],
     deps = [
             "@llvm-project//llvm:Support",
+            "@llvm-project//llvm:MC",
             "@llvm-project//mlir:AllPassesAndDialects",
             "@llvm-project//mlir:MlirOptLib",
             "@llvm-project//mlir:Pass",
             "@llvm-project//mlir:Support",
-            "@llvm-project//mlir/test:TestTransforms",
-            "@org_tensorflow//tensorflow/compiler/mlir:init_mlir",]
+            "@llvm-project//mlir/test:TestTransforms",]
+#            "@org_tensorflow//tensorflow/compiler/mlir:init_mlir",]
 #             + if_tf(
 #                 ["@org_tensorflow//tensorflow/compiler/mlir:init_mlir",]
 #            ),#TODO add if_onnx&if_pytorch here after added the corresponding build support

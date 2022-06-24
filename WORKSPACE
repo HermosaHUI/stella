@@ -204,10 +204,10 @@ maybe(
 #)
 
 #For development, one can use a local TF repository instead.
-local_repository(
-   name = "org_tensorflow",
-   path = "../tensorflow",
-)
+#local_repository(
+#   name = "org_tensorflow",
+#   path = "../tensorflow",
+#)
 
 #load("@org_tensorflow//tensorflow:workspace0.bzl", "tf_bind")
 #load("@org_tensorflow//tensorflow:workspace1.bzl", "workspace")
