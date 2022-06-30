@@ -13,3 +13,28 @@ cc_binary(
     "@llvm-project//llvm:IRReader",
   ],
 )
+
+cc_binary(
+  name = "llvmir_gen_example",
+  srcs = ["llvm-ir/llvmir_print.cc"],
+  deps = [
+    "@llvm-project//llvm:Support",
+    "@llvm-project//llvm:attributes_gen",
+    "@llvm-project//llvm:MC",
+    "@llvm-project//llvm:BitWriter",
+    "@llvm-project//llvm:IRReader",
+  ],
+)
+
+cc_binary(
+  name = "llvm-stress",
+  srcs = ["llvm-stress/llvm-stress.cpp"],
+  deps = [
+    "@llvm-project//llvm:Support",
+    "@llvm-project//llvm:attributes_gen",
+    "@llvm-project//llvm:MC",
+    "@llvm-project//llvm:BitWriter",
+    "@llvm-project//llvm:IRReader",
+    "@llvm-project//llvm:Passes",
+  ],
+)

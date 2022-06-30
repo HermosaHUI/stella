@@ -1,0 +1,14 @@
+digraph "CFG for 'main' function" {
+	label="CFG for 'main' function";
+
+	Node0x561c8bf0df50 [shape=record,color="#3d50c3ff", style=filled, fillcolor="#b9d0f970",label="{entry:\l  %retval = alloca i32, align 4\l  %res = alloca i32, align 4\l  %i = alloca i32, align 4\l  store i32 0, i32* %retval, align 4\l  store i32 0, i32* %res, align 4\l  store i32 0, i32* %i, align 4\l  br label %for.cond\l}"];
+	Node0x561c8bf0df50 -> Node0x561c8bf0e3e0;
+	Node0x561c8bf0e3e0 [shape=record,color="#b70d28ff", style=filled, fillcolor="#b70d2870",label="{for.cond:                                         \l  %0 = load i32, i32* %i, align 4\l  %cmp = icmp slt i32 %0, 3\l  br i1 %cmp, label %for.body, label %for.end\l|{<s0>T|<s1>F}}"];
+	Node0x561c8bf0e3e0:s0 -> Node0x561c8bf0e610;
+	Node0x561c8bf0e3e0:s1 -> Node0x561c8bf0e690;
+	Node0x561c8bf0e610 [shape=record,color="#b70d28ff", style=filled, fillcolor="#bb1b2c70",label="{for.body:                                         \l  %1 = load i32, i32* %i, align 4\l  %call = call i32 @_Z10first_funcic(i32 %1, i8 signext 97)\l  %2 = load i32, i32* %res, align 4\l  %add = add nsw i32 %2, %call\l  store i32 %add, i32* %res, align 4\l  br label %for.inc\l}"];
+	Node0x561c8bf0e610 -> Node0x561c8bf0eb90;
+	Node0x561c8bf0eb90 [shape=record,color="#b70d28ff", style=filled, fillcolor="#bb1b2c70",label="{for.inc:                                          \l  %3 = load i32, i32* %i, align 4\l  %inc = add nsw i32 %3, 1\l  store i32 %inc, i32* %i, align 4\l  br label %for.cond, !llvm.loop !4\l}"];
+	Node0x561c8bf0eb90 -> Node0x561c8bf0e3e0;
+	Node0x561c8bf0e690 [shape=record,color="#3d50c3ff", style=filled, fillcolor="#b9d0f970",label="{for.end:                                          \l  %4 = load i32, i32* %res, align 4\l  ret i32 %4\l}"];
+}
