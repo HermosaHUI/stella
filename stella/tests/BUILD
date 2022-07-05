@@ -38,3 +38,16 @@ cc_binary(
     "@llvm-project//llvm:Passes",
   ],
 )
+
+cc_binary(
+  name = "llvm-compile",
+  srcs = ["llvm-compile/llvm-compile.cpp"],
+  deps = [
+    "@llvm-project//llvm:Support",
+    "@llvm-project//llvm:attributes_gen",
+    "@llvm-project//llvm:MC",
+    "@llvm-project//llvm:BitWriter",
+    "@llvm-project//llvm:IRReader",
+    "@llvm-project//llvm:Passes",
+  ],
+)
